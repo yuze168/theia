@@ -74,9 +74,8 @@ export namespace PluginIdentifiers {
      * @returns `undefined` if it looks like the string passed in does not have the format returned by {@link PluginIdentifiers.toVersionedId}.
      */
     export function idAndVersionFromVersionedId(probablyId: string): IdAndVersion | undefined {
-        const endOfPublisher = probablyId.indexOf('.');
-        const endOfName = probablyId.indexOf('@', endOfPublisher);
-        if (endOfPublisher === -1 || endOfName === -1) {
+        const endOfName = probablyId.lastIndexOf('@');
+        if (endOfName === -1) {
             return undefined;
         }
         return { id: probablyId.slice(0, endOfName) as UnversionedId, version: probablyId.slice(endOfName + 1) };
